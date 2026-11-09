@@ -5,3 +5,4 @@
 @media(max-width:380px){.shell{width:calc(100% - 32px)}.preview-detail{display:none}nav{gap:1.2rem}.intro{grid-template-columns:1fr 76px}.portrait{width:76px;height:100px}.section-heading{flex-wrap:wrap}.intro-links{gap:1rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 .toc summary{font-size:.85rem;font-weight:600;color:var(--heading);cursor:pointer;min-height:32px}.toc details[open] summary{margin-bottom:.8rem}
+.site-footer{flex-wrap:wrap}.visitor-count{white-space:nowrap}.site-footer .visitor-count span{margin:0;color:inherit}

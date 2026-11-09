@@ -30,6 +30,7 @@ jobs:
         run: pnpm build
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io
+          PUBLIC_GOATCOUNTER_URL: ${{ vars.PUBLIC_GOATCOUNTER_URL }}
           ASTRO_TELEMETRY_DISABLED: '1'
       - name: Verify production output
         run: pnpm verify:dist

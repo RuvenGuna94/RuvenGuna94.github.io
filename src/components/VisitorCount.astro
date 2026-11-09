@@ -1,0 +1,39 @@
+---
+import { previewDrafts } from '../lib/content';
+
+const configured = (import.meta.env.PUBLIC_GOATCOUNTER_URL || '').trim().replace(/\/$/, '');
+if (configured && !/^https:\/\/[a-z0-9-]+\.goatcounter\.com$/i.test(configured)) {
+  throw new Error('PUBLIC_GOATCOUNTER_URL must be the HTTPS address of your GoatCounter site.');
+}
+const endpoint = !previewDrafts && import.meta.env.PROD ? configured : '';
+---
+<p class="visitor-count" data-counter-site={endpoint}>
+  <span title="Estimated visits, not an exact count of distinct people. Counts may take up to four hours to update.">Visits:</span>{' '}
+  <span data-visit-count aria-live="polite">unavailable</span>
+</p>
+
+<script>
+  const counter = document.querySelector<HTMLElement>('[data-counter-site]');
+  const site = counter?.dataset.counterSite;
+  if (site) {
+    // Track only production pages. The public endpoint requires no secret API key.
+    const tracking = document.createElement('script');
+    tracking.src = 'https://gc.zgo.at/count.js';
+    tracking.async = true;
+    tracking.dataset.goatcounter = `${site}/count`;
+    document.head.append(tracking);
+
+    // TOTAL is GoatCounter's site-wide total, rather than the current page's count.
+    fetch(`${site}/counter/TOTAL.json`, { credentials: 'omit', signal: AbortSignal.timeout(6000) })
+      .then(response => {
+        if (!response.ok) throw new Error('Counter unavailable');
+        return response.json();
+      })
+      .then(data => {
+        if (typeof data.count !== 'string' || !/^\d[\d\s,.\u00a0\u202f]*$/.test(data.count)) return;
+        const value = counter?.querySelector('[data-visit-count]');
+        if (value) value.textContent = data.count;
+      })
+      .catch(() => { /* Preserve an honest fallback if blocked or not configured publicly. */ });
+  }
+</script>

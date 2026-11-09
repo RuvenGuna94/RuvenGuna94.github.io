@@ -15,7 +15,7 @@ Home, Projects, Labs and Writing, with two project families: AI Governance and R
 - Locally served Manrope, Fraunces and JetBrains Mono fonts
 - GitHub Pages deployment through GitHub Actions
 
-The site has no backend, accounts, database or analytics tracking.
+The site has no backend, user accounts or database. Optional GoatCounter tracking and a site-wide footer counter are enabled only after an analytics site is configured.
 
 ## Local development
 
@@ -46,6 +46,16 @@ Keep articles and labs `draft: true` until approved. Articles require an approve
 Manrope is the reading face, Fraunces is reserved for selected headings, and JetBrains Mono is used for code. Both themes prioritise text contrast, comfortable reading columns, keyboard navigation and mobile reflow. Avoid emoji and emoticons by default. Articles use a casual voice; repository documentation uses a technical, professional tone. Each section should add new information.
 
 ## Deployment
+
+### Visitor count
+
+Create a GoatCounter site and enable **Allow adding visitor counts on your website** in its settings. Keep the dashboard private. Set the GitHub Actions repository variable `PUBLIC_GOATCOUNTER_URL` to that site's HTTPS address and rerun the deployment. No secret API key is required or included in browser code.
+
+The footer requests the site-wide `TOTAL` counter and displays **Visits**, an estimate rather than an exact count of distinct people. Counts may be cached for up to four hours. If the service is unconfigured, blocked or unavailable, the footer says **Visits: unavailable** rather than showing a fabricated zero. Tracking is disabled in development and draft-preview builds. Counts begin when tracking is enabled; earlier visits cannot be reconstructed.
+
+See [GoatCounter's counter documentation](https://www.goatcounter.com/help/visitor-counter) and [session-counting method](https://www.goatcounter.com/help/sessions).
+
+### GitHub Pages
 
 Pushes to `main` and manual workflow runs build the site, verify the static output and deploy to GitHub Pages. The workflow sets `SITE_URL` to the repository owner's GitHub Pages origin. For a future repository subpath, set `BASE_PATH` and verify all routes before deploying.
 
