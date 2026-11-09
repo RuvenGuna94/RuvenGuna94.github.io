@@ -13,7 +13,7 @@ import { url } from '../lib/content';
       <p>Between work and everything else, I try to keep learning and make time to experiment. This is a space for the things I’m building, the questions I’m exploring, and guides for learning alongside a full-time job.</p>
       <div class="intro-links"><a href={url('projects/')}>Explore my projects <span aria-hidden="true">→</span></a><a href={url('writing/')}>Read my writing <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="portrait" role="img" aria-label="Portrait placeholder; an actual photo will be added later"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="16" r="8" stroke="currentColor" stroke-width="1.2"/><path d="M9 41c0-10 6-15 15-15s15 5 15 15" stroke="currentColor" stroke-width="1.2"/></svg><span>A photo to come</span></div>
+    <div class="portrait portrait-photo"><img src={url('images/ruven-guna.webp')} alt="Ruven Guna smiling outdoors" width="1000" height="1500" decoding="async" fetchpriority="high" /></div>
   </section>
   <section class="section" aria-labelledby="projects-title"><div class="section-heading"><h2 id="projects-title">What I’m exploring</h2><a href={url('projects/')}>All projects <span aria-hidden="true">→</span></a></div><ProjectCards /></section>
   <section class="section" aria-labelledby="writing-title"><div class="section-heading"><h2 id="writing-title">From the notebook</h2><a href={url('writing/')}>All writing <span aria-hidden="true">→</span></a></div><WritingList limit={3} /></section>
