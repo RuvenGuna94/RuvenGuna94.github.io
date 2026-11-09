@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import { visible, url } from '../lib/content';
+const { limit } = Astro.props;
+let entries = (await getCollection('writing', visible)).sort((a,b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
+if (limit) entries = entries.slice(0, limit);
+---
+{entries.length ? <div>{entries.map(entry => <article class="writing-row">
+  <div class="meta">{entry.data.draft && <span class="badge">Sample draft</span>}<span>{entry.data.tags.join(' · ')}</span>{entry.data.date && <time datetime={entry.data.date.toISOString()}>{entry.data.date.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</time>}</div>
+  <h3><a href={url(`writing/${entry.id}/`)}>{entry.data.title} <span aria-hidden="true">↗</span></a></h3>
+  <p>{entry.data.description}</p>
+</article>)}</div> : <p class="empty-note">No published articles yet. This is where future writing on AI Governance, AI Engineering and other things I’m learning will live.</p>}

@@ -1,0 +1,27 @@
+---
+import Base from './Base.astro';
+import { url } from '../lib/content';
+interface Props { title: string; description: string; kind: 'labs' | 'writing'; draft: boolean; meta: string; date?: Date; headings: { depth: number; slug: string; text: string }[]; references?: { title: string; url: string }[] }
+const { title, description, kind, draft, meta, date, headings, references = [] } = Astro.props;
+const label = kind === 'labs' ? 'Labs' : 'Writing';
+---
+<Base title={title} description={description} draft={draft}>
+  <div class="reading-layout">
+    <article>
+      <header class="reading-header"><a class="breadcrumb" href={url(`${kind}/`)}>← {label}</a><div class="meta" style="margin-top:1.5rem">{draft && <span class="badge">Sample draft · Layout preview</span>}<span>{meta}</span>{date && <time datetime={date.toISOString()}>{date.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</time>}</div><h1>{title}</h1><p class="description">{description}</p></header>
+      {draft && <aside class="note" aria-label="Draft notice">This sample tests the reading experience. It is not a published article or verified project guide. Any project-specific instructions remain to be supplied and tested.</aside>}
+      <div class="prose"><slot />{references.length > 0 && <section><h2>References</h2><ul class="reference-list">{references.map(ref => <li><a href={ref.url}>{ref.title}</a></li>)}</ul></section>}</div>
+      <div class="article-end"><a class="back-link" href={url(`${kind}/`)}>← Back to {label.toLowerCase()}</a></div>
+    </article>
+    <aside class="toc" aria-label="On this page"><details open><summary>On this page</summary>{headings.filter(h=>h.depth===2).map(h=><a href={`#${h.slug}`}>{h.text}</a>)}</details></aside>
+  </div>
+</Base>
+<script>
+  if (matchMedia('(max-width: 760px)').matches) document.querySelector('.toc details')?.removeAttribute('open');
+  document.querySelectorAll('.prose table').forEach(table => {
+    const wrapper = document.createElement('div'); wrapper.className = 'table-scroll'; wrapper.tabIndex = 0;
+    wrapper.setAttribute('role', 'region'); wrapper.setAttribute('aria-label', 'Scrollable data table');
+    table.before(wrapper); wrapper.append(table);
+  });
+  document.querySelectorAll('.prose pre').forEach(pre => { pre.setAttribute('tabindex', '0'); pre.setAttribute('aria-label', 'Code example, scroll to read'); });
+</script>

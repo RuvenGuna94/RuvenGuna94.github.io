@@ -1,0 +1,68 @@
+---
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-500.css';
+import '@fontsource/manrope/latin-600.css';
+import '@fontsource/manrope/latin-700.css';
+import '@fontsource/fraunces/latin-500.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '../styles/global.css';
+import { url, previewDrafts } from '../lib/content';
+interface Props { title?: string; description?: string; draft?: boolean }
+const { title, description = 'A personal notebook on learning and building in data and AI.', draft = false } = Astro.props;
+const nav = [['Home', ''], ['Projects', 'projects/'], ['Labs', 'labs/'], ['Writing', 'writing/']];
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} · Ruven Guna` : 'Ruven Guna · Learning, building & sharing'}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {(draft || previewDrafts) && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title="Ruven Guna — Writing" href={url('rss.xml')} />
+    <script is:inline>
+      (() => {
+        let saved; try { saved = localStorage.getItem('theme'); } catch {}
+        const dark = saved === 'dark' || (saved !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="identity" href={url()}>Ruven Guna<span class="identity-dot" aria-hidden="true">.</span></a>
+      <nav aria-label="Main navigation">
+        {nav.map(([label, path]) => <a href={url(path)} aria-current={(path ? Astro.url.pathname.startsWith(url(path)) : Astro.url.pathname === url()) ? 'page' : undefined}>{label}</a>)}
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch colour theme"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">Dark</span></button>
+    </header>
+    {previewDrafts && <div class="preview-note shell"><span class="status-dot" aria-hidden="true"></span>Local design preview <span class="preview-detail">· Sample content is not published</span></div>}
+    <main id="main" class="shell" tabindex="-1"><slot /></main>
+    <footer class="site-footer shell"><p>Ruven Guna <span aria-hidden="true">/</span> A little space for learning.</p><p class="footer-note">Public profile and contact links to come.</p></footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      const media = matchMedia('(prefers-color-scheme: dark)');
+      function update() {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        button?.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} mode`);
+        if (button) button.querySelector('.theme-label')!.textContent = dark ? 'Light' : 'Dark';
+      }
+      button?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+        update();
+      });
+      media.addEventListener('change', (event) => {
+        let saved; try { saved = localStorage.getItem('theme'); } catch {}
+        if (saved !== 'dark' && saved !== 'light') document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+        update();
+      });
+      update();
+    </script>
+  </body>
+</html>

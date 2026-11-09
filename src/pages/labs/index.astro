@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { visible, url } from '../../lib/content';
+const entries = await getCollection('labs', visible);
+const families = [['AI Governance', 'ai-governance'], ['RAG Engineering', 'rag-engineering']];
+---
+<Base title="Labs"><div class="page-heading"><p class="eyebrow">One module at a time</p><h1>Labs</h1><p>Practical, self-paced guides connected to the projects. Make room for a module when you can; there’s no fixed timetable to keep up with.</p></div><div class="index-list">{families.map(([family,id]) => <section class="section" id={id}><h2>{family}</h2>{entries.filter(entry => entry.data.family === family).map(entry => <article class="lab-row"><div class="meta">{entry.data.draft && <span class="badge">Sample draft</span>}<span>{entry.data.duration}</span></div><h3><a href={url(`labs/${entry.id}/`)}>{entry.data.title}</a></h3><p>{entry.data.description}</p></article>)}{!entries.some(entry => entry.data.family === family) && <p class="empty-note">Modules will appear here once the project code and learning goals are confirmed.</p>}</section>)}</div></Base>

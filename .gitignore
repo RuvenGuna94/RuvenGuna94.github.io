@@ -1,0 +1,24 @@
+# Generated dependencies and build output
+node_modules/
+dist/
+.astro/
+playwright-report/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local Codex instructions, planning and review material
+AGENTS.md
+.agents/
+.codex/
+/docs/
+/work/
+/outputs/
+
+# Unapproved editorial samples: local preview only
+/src/content/writing/reading-a-retrieval-result.mdx
+/src/content/labs/inspect-evidence.md

@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import { url } from '../lib/content';
+const projects = (await getCollection('projects')).sort((a,b) => a.data.order - b.data.order);
+---
+<div class="project-grid">
+  {projects.map((project, i) => <article class="project-card">
+    <span class="project-number">0{i + 1} / Project family</span>
+    <h3><a href={url(`projects/${project.id}/`)}>{project.data.title}</a></h3>
+    <p>{project.data.description}</p>
+    <div class="card-links"><a href={url(`projects/${project.id}/`)}>Project overview <span aria-hidden="true">↗</span></a><a href={url(`labs/#${project.id}`)}>Related labs <span aria-hidden="true">→</span></a></div>
+  </article>)}
+</div>
