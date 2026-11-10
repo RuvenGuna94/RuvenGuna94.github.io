@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 
-// Set SITE_URL only after the GitHub account/domain is confirmed.
+// Keep the confirmed public origin consistent for canonical links and RSS.
 export default defineConfig({
-  site: process.env.SITE_URL || undefined,
+  site: process.env.SITE_URL || 'https://ruvenguna.com',
   base: process.env.BASE_PATH || '/',
   output: 'static',
   trailingSlash: 'always',

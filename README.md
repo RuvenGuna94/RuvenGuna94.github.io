@@ -2,7 +2,7 @@
 
 A personal, reading-first website about learning and building in data and AI.
 
-**Website:** https://ruvenguna94.github.io/
+**Website:** https://ruvenguna.com/
 
 ## Scope
 
@@ -57,7 +57,7 @@ See [GoatCounter's counter documentation](https://www.goatcounter.com/help/visit
 
 ### GitHub Pages
 
-Pushes to `main` and manual workflow runs build the site, verify the static output and deploy to GitHub Pages. The workflow sets `SITE_URL` to the repository owner's GitHub Pages origin. For a future repository subpath, set `BASE_PATH` and verify all routes before deploying.
+Pushes to `main` and manual workflow runs build the site, verify the static output and deploy to GitHub Pages. The workflow sets `SITE_URL` to `https://ruvenguna.com` for canonical links and RSS. The repository's Pages settings and Cloudflare DNS connect the custom domain; `www.ruvenguna.com` redirects to the main domain. For a future repository subpath, set `BASE_PATH` and verify all routes before deploying.
 
 ## Enterprise readiness and roadmap
 
