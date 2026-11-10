@@ -18,7 +18,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} · Ruven Guna` : 'Ruven Guna · Learning, building & sharing'}</title>
+    <title>{title ? `${title} · Ruven Guna` : 'Ruven Guna'}</title>
     <meta name="description" content={description} />
     {canonical && <link rel="canonical" href={canonical} />}
     {(draft || previewDrafts) && <meta name="robots" content="noindex, nofollow" />}
@@ -43,7 +43,15 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     </header>
     {previewDrafts && <div class="preview-note shell"><span class="status-dot" aria-hidden="true"></span>Local design preview <span class="preview-detail">· Sample content is not published</span></div>}
     <main id="main" class="shell" tabindex="-1"><slot /></main>
-    <footer class="site-footer shell"><p>Ruven Guna <span aria-hidden="true">/</span> A little space for learning.</p><VisitorCount /><p class="footer-note">Public profile and contact links to come.</p></footer>
+    <footer class="site-footer shell">
+      <p>Ruven Guna <span aria-hidden="true">/</span> A little space for learning.</p>
+      <div class="social-links" role="group" aria-label="Social profiles">
+        <a href="https://www.linkedin.com/in/ruven-guna/" rel="me">LinkedIn</a>
+        <a href="https://github.com/RuvenGuna94" rel="me">GitHub</a>
+        <a href="https://www.instagram.com/ruvenguna/" rel="me">Instagram</a>
+      </div>
+      <VisitorCount />
+    </footer>
     <script>
       const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
       const media = matchMedia('(prefers-color-scheme: dark)');
