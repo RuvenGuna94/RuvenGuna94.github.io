@@ -1,0 +1,36 @@
+/* Shared typography contract. See docs/typography.md before adding a new role. */
+:root {
+  --font-body: Manrope, system-ui, sans-serif;
+  --font-display: Fraunces, Georgia, serif;
+  --font-code: 'JetBrains Mono', monospace;
+
+  /* rem respects the reader's browser default; keep html font-size unset. */
+  --text-body: 1.125rem;
+  --text-ui: 1rem;
+  --text-small: .875rem;
+  --text-code: 1rem;
+  --text-inline-code: .9375rem;
+  --text-brand: 1.65rem;
+  --text-h1: clamp(2.15rem, 1.2rem + 2.5vw, 3.2rem);
+  --text-article-title: clamp(2rem, 1.1rem + 2.2vw, 2.8rem);
+  --text-h2: 1.55rem;
+  --text-prose-h2: 1.5rem;
+  --text-h3: 1.25rem;
+  --text-card-title: 1.35rem;
+
+  --leading-body: 1.75;
+  --leading-reading: 1.8;
+  --leading-heading: 1.3;
+  --leading-ui: 1.6;
+  /* Measured with Manrope: roughly 65–75 real characters on full lines. */
+  --reading-width: 58ch;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --text-body: 1.0625rem;
+    --text-brand: 1.5rem;
+    --text-h1: 2.2rem;
+    --text-h2: 1.35rem;
+  }
+}

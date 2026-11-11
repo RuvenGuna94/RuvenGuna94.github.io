@@ -39,6 +39,8 @@ The build creates `dist/`. The output verification checks local links and ensure
 
 ## Content and design
 
+Follow [STYLE_GUIDE.md](STYLE_GUIDE.md) when adding a page or component. Shared font roles and sizes live in `src/styles/typography-tokens.css`; the style guide explains their use and reading/accessibility checks.
+
 `src/content/projects/`, `src/content/labs/` and `src/content/writing/` contain content. Schemas live in `src/content.config.ts`; reusable layouts live in `src/layouts/`; shared CSS tokens and responsive rules live in `src/styles/global.css`.
 
 Keep articles and labs `draft: true` until approved. Articles require an approved publication date before becoming non-draft. Production builds exclude drafts, and RSS includes only published, dated articles. Do not set `PREVIEW_DRAFTS=true` in deployment.
